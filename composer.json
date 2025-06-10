@@ -1,0 +1,68 @@
+{
+    "name": "henzeb/event-horizon",
+    "description": "Enables seamless job monitoring and tag management across multiple Redis connections or databases",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "horizon",
+        "redis",
+        "queue",
+        "jobs",
+        "monitoring",
+        "multi-connection",
+        "multi-tenant",
+        "microservices",
+        "dashboard",
+        "job-tracking",
+        "redis-connections",
+        "queue-monitoring",
+        "horizon-extension"
+    ],
+    "authors": [
+        {
+            "name": "Henze",
+            "email": "henzeberkheij@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "laravel/horizon": "^5.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0|^10.0",
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "predis/predis": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Henzeb\\EventHorizon\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Henzeb\\EventHorizon\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Henzeb\\EventHorizon\\EventHorizonServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "test": "pest --compact",
+        "test:coverage": "XDEBUG_MODE=coverage pest --coverage --coverage-html ./coverage --compact",
+        "test:coverage-text": "XDEBUG_MODE=coverage pest --coverage --coverage-text --compact"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
