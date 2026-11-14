@@ -9,7 +9,6 @@ use Illuminate\Support\ServiceProvider;
 use Laravel\Horizon\Contracts\JobRepository;
 use Laravel\Horizon\Contracts\TagRepository;
 
-
 class EventHorizonServiceProvider extends ServiceProvider
 {
     public function register(): void

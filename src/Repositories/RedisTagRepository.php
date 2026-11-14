@@ -11,14 +11,14 @@ class RedisTagRepository extends HorizonRedisTagRepository
 
     public function monitored(array $tags, $connectionName = null): array
     {
-        return $this->withQueueConnection($connectionName, fn() => parent::monitored($tags));
+        return $this->withQueueConnection($connectionName, fn () => parent::monitored($tags));
     }
 
     public function add($id, array $tags, $connectionName = null)
     {
         $this->withQueueConnection(
             $connectionName,
-            fn() => parent::add($id, $tags)
+            fn () => parent::add($id, $tags)
         );
     }
 }

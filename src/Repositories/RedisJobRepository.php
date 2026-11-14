@@ -4,7 +4,6 @@ namespace Henzeb\EventHorizon\Repositories;
 
 use Henzeb\EventHorizon\Concerns\IsQueueConnectionAware;
 use Laravel\Horizon\Repositories\RedisJobRepository as HorizonRedisJobRepository;
-use Redis;
 
 class RedisJobRepository extends HorizonRedisJobRepository
 {
@@ -13,7 +12,7 @@ class RedisJobRepository extends HorizonRedisJobRepository
     {
         $this->withQueueConnection(
             $connection,
-            fn() => parent::pushed($connection, $queue, $payload)
+            fn () => parent::pushed($connection, $queue, $payload)
         );
     }
 }
