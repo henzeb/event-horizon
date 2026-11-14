@@ -71,7 +71,9 @@ The package automatically replaces Horizon's default behavior with connection-aw
 ## Requirements
 
 - PHP 8.2+
-- Laravel Horizon ^5.0
+- Laravel 12 or 13
+- Laravel Horizon ^5.30.3
+- The PhpRedis client (`database.redis.client` set to `phpredis`)
 - All Horizon instances must use the same `horizon.prefix` configuration value
 
 ## License

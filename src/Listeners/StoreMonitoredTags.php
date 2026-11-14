@@ -4,6 +4,7 @@ namespace Henzeb\EventHorizon\Listeners;
 
 use Laravel\Horizon\Listeners\StoreMonitoredTags as HorizonStoreMonitoredTags;
 use Laravel\Horizon\Events\JobPushed;
+use Henzeb\EventHorizon\Repositories\RedisTagRepository;
 use Laravel\Horizon\Contracts\TagRepository;
 
 class StoreMonitoredTags extends HorizonStoreMonitoredTags
@@ -15,6 +16,12 @@ class StoreMonitoredTags extends HorizonStoreMonitoredTags
 
     public function handle(JobPushed $event): void
     {
+        if (! $this->tags instanceof RedisTagRepository) {
+            parent::handle($event);
+
+            return;
+        }
+
         if (! $event->payload->tags()) {
             return;
         }

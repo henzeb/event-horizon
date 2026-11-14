@@ -20,7 +20,7 @@ class TestCase extends Orchestra
     {
         $app['config']->set('database.redis.default', [
             'url' => null,
-            'host' => '127.0.0.1',
+            'host' => env('REDIS_HOST', '127.0.0.1'),
             'password' => null,
             'port' => 6379,
             'database' => 0,
@@ -29,7 +29,7 @@ class TestCase extends Orchestra
 
         $app['config']->set('database.redis.service_auth', [
             'url' => null,
-            'host' => '127.0.0.1',
+            'host' => env('REDIS_HOST', '127.0.0.1'),
             'password' => null,
             'port' => 6379,
             'database' => 0,
@@ -38,7 +38,7 @@ class TestCase extends Orchestra
 
         $app['config']->set('database.redis.service_billing', [
             'url' => null,
-            'host' => '127.0.0.1',
+            'host' => env('REDIS_HOST', '127.0.0.1'),
             'password' => null,
             'port' => 6379,
             'database' => 1,
@@ -47,7 +47,7 @@ class TestCase extends Orchestra
 
         $app['config']->set('database.redis.horizon', [
             'url' => null,
-            'host' => '127.0.0.1',
+            'host' => env('REDIS_HOST', '127.0.0.1'),
             'password' => null,
             'port' => 6379,
             'database' => 0,

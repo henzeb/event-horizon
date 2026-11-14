@@ -9,12 +9,19 @@ class RedisTagRepository extends HorizonRedisTagRepository
 {
     use IsQueueConnectionAware;
 
-    public function monitored(array $tags, $connectionName = null): array
+    /**
+     * @param  array<mixed>  $tags
+     * @return array<mixed>
+     */
+    public function monitored(array $tags, ?string $connectionName = null): array
     {
         return $this->withQueueConnection($connectionName, fn () => parent::monitored($tags));
     }
 
-    public function add($id, array $tags, $connectionName = null)
+    /**
+     * @param  array<mixed>  $tags
+     */
+    public function add($id, array $tags, ?string $connectionName = null)
     {
         $this->withQueueConnection(
             $connectionName,

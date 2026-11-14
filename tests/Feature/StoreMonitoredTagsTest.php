@@ -196,3 +196,38 @@ test('listener does nothing when no tags are monitored', function () {
     expect($authRedis->keys('*'))->toBe([]);
     expect($horizonRedis->keys('*'))->toBe([]);
 });
+
+test('listener defers to horizon when tag repository is not connection aware', function () {
+    app('redis')->connection('service_auth')->flushdb();
+    app('redis')->connection('service_billing')->flushdb();
+    app('redis')->connection('horizon')->flushdb();
+
+    $tagRepository = new class (app('redis')) extends \Laravel\Horizon\Repositories\RedisTagRepository {
+        public function monitoring(): array
+        {
+            return ['billing'];
+        }
+    };
+
+    $listener = new StoreMonitoredTags($tagRepository);
+
+    $payloadData = json_encode([
+        'uuid' => 'horizon-job-uuid',
+        'displayName' => 'BillingJob',
+        'job' => 'BillingJob',
+        'maxTries' => 3,
+        'timeout' => 60,
+        'tags' => ['billing'],
+        'data' => ['test' => 'billing-data'],
+    ]);
+
+    $event = (new JobPushed($payloadData))->connection('billing_service')->queue('default');
+
+    $listener->handle($event);
+
+    $horizonRedis = app('redis')->connection('horizon');
+    expect($horizonRedis->zrange('billing', 0, -1))->toContain('horizon-job-uuid');
+    expect(app('redis')->connection('service_billing')->zcard('billing'))->toBe(0);
+
+    $horizonRedis->flushdb();
+});
